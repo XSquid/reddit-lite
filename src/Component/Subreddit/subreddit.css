@@ -1,0 +1,13 @@
+.subreddits{
+    text-align: center;
+    width: 20%;
+    background-color: purple;
+    position: sticky;
+    top: 5rem;
+    height: 100%;
+}
+
+.subreddits ul{
+    padding-left: 0;
+    list-style-position: inside;
+}

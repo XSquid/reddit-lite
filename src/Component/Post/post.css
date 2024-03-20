@@ -1,0 +1,13 @@
+img{
+    width: 700px
+}
+
+.post{
+    background-color: lime;
+    padding-bottom: 1rem;
+}
+
+.indPost{
+    display: flex;
+    justify-content: center;
+}

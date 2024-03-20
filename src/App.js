@@ -1,23 +1,17 @@
 import logo from './logo.svg';
 import './App.css';
+import RedditHeader from './Component/Header/header';
+import PostList from './Component/PostList/postList';
+import Subreddit from './Component/Subreddit/subreddit';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <RedditHeader />
+      <div className='postContainer'>
+        <PostList />
+        <Subreddit />
+      </div>
     </div>
   );
 }

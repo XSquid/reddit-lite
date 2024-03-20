@@ -1,0 +1,9 @@
+.banner{
+    text-align: center;
+    position: sticky;
+    top: 0;
+    height: 4rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    background-color: red;
+}

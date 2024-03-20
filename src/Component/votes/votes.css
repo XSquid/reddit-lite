@@ -1,0 +1,36 @@
+.votes{
+    font-size: 1.5rem;
+    background-color: darkcyan;
+    align-items:center;
+    margin-top: 175px;
+}
+
+.arrowUp{
+    font-size: 3rem;
+    -webkit-text-stroke: 1px orange;
+    color: white;
+}
+
+.arrowDown{
+    font-size: 3rem;
+    -webkit-text-stroke: 1px lightskyblue;
+    color: white;
+}
+
+.arrowUp:hover{
+    color: orange;
+}
+
+.arrowDown:hover{
+    color: lightskyblue
+}
+
+.arrowUp:active{
+    color: rgb(255, 136, 0);
+    -webkit-text-stroke:rgb(255, 136, 0);
+}
+
+.arrowDown:active{
+    color: rgb(48, 176, 255);
+    -webkit-text-stroke:rgb(48, 176, 255);
+}
