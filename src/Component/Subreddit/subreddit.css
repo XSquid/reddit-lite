@@ -11,3 +11,27 @@
     padding-left: 0;
     list-style-position: inside;
 }
+
+button{
+    background: transparent;
+    border: none;
+}
+
+
+.addBtn{
+    color: rgb(0, 255, 0);
+    font-size: 2rem;
+}
+
+.addBtn:active{
+    color:rgb(0, 196, 0)
+}
+
+.removeBtn{
+    color: red;
+    font-size: 1.5rem;
+}
+
+.removeBtn:active{
+    color:rgb(212, 0, 0)
+}

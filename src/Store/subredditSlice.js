@@ -7,13 +7,15 @@ export const subredditsSlice = createSlice({
         subreddits: ['/pics', '/classicwow', '/videos', '/funny']
     },
     reducers: {
-        addSubreddit: (state, action) => {
-            const {name} = action.payload
-            state.subreddits.push(name)
+        addSubreddit: (state, action) => { //when dispatched, adds whatever the action.payload is to the subreddit list array
+            state.subreddits.push(action.payload)
+        },
+        removeSubreddit: (state, action) => {
+            state.subreddits.filter(action.payload)
         }
     }
 })
 
-export const {addSubreddit} = subredditsSlice.actions
+export const {addSubreddit, removeSubreddit} = subredditsSlice.actions
 export const selectSubreddits = (state) => state.subreddits.subreddits
 export default subredditsSlice.reducer;
