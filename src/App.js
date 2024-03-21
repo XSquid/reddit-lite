@@ -17,3 +17,9 @@ function App() {
 }
 
 export default App;
+
+
+//set up store with dummy values
+//import store values into subreddit list, posts
+//when press comment button, expand to show comments\
+//upvote/downvote buttons increase or decrease upvote count in store
