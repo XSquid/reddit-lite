@@ -1,19 +1,33 @@
 import React from "react";
 import Comments from "../Comment/comments";
 import './post.css'
-import picture from './placeholder.jpg'
 import Votes from "../votes/votes";
+import { voteUp, voteDown } from "../../Store/postSlice";
+import { useDispatch } from "react-redux";
 
-function Post() {
+function Post({id, title, votes, image, subreddit}) {
+
+    const dispatch = useDispatch();
+
+    const upvote = (e) => {
+        e.preventDefault();
+        dispatch(voteUp(id))
+    }
+
+    const downvote = (e) => {
+        e.preventDefault();
+        dispatch(voteDown(id))
+    }
+
     return (
-        <div className='post'>
-            <h3>Post title</h3>
+        <div className='post' id={id}>
+            <div className='post-banner'><span className='banner-subreddit'>{subreddit}</span><span className='banner-title'>{title}</span></div>
             <div className='indPost'>
                 <div>
-                    <Votes />
+                    <Votes voteCount={votes} upvote={upvote} downvote={downvote}/>
                 </div>
                 <div>
-                    <img src={picture} alt='' />
+                    <img src={image} alt='' />
                     <Comments />
                 </div>
 

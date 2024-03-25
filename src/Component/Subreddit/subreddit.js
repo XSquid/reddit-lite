@@ -2,33 +2,39 @@ import React, { useState } from "react";
 import './subreddit.css'
 import { useSelector, useDispatch } from "react-redux";
 import { selectSubreddits } from "../../Store/subredditSlice";
-import { addSubreddit, removeSubreddit } from "../../Store/subredditSlice";
-
+import { addSubreddit, loadData } from "../../Store/subredditSlice";
+import subData from "../../Store/data";
+import SubredditList from "./subredditList";
 
 export default function Subreddit() {
 
-    const subredditList = useSelector(selectSubreddits)
+    const subList = useSelector(selectSubreddits)
     const [search, setSearch] = useState('')
     const dispatch = useDispatch();
 
-    const onChange = (e) =>{
+    const onChange = (e) => {
         setSearch(e.target.value)
     } // update the search state with whatever is typed in the input
 
     const addSubtoList = (event) => {
         event.preventDefault();
-        dispatch(addSubreddit(search));
+        if (search) {
+            dispatch(addSubreddit({ id: Math.floor(Math.random() * 100), name: search }));
+        }
+
     } //when add button is clicked, dispatches reducer to add the payload to store, which is then displayed under active subreddits
 
-    const removeSub = (event) => {
-        event.preventDefault();
-        dispatch(removeSubreddit(event.target.value)) //figuring out how to remove a subreddit from store, 2 options: 
-    } // 1. add an ID to each subreddit that is hidden, then filter out the ID (previous codecademy thigns have done this, will have to look up how to do)
-    // 2. set a variable equal to the innerHTML of the paragraph/span etc in question, then filter that using the reducer.
+
+    // load temp dummy data
+    const loadSubs = (e) => {
+        e.preventDefault();
+        dispatch(loadData(subData))
+    }
 
     return (
         <div className='subreddits'>
             <h2>subreddits</h2>
+            <button onClick={loadSubs}>Load Data</button>
             <form>
                 <input placeholder='search' value={search} onChange={onChange}></input>
                 <p>Search Results:</p>
@@ -37,7 +43,7 @@ export default function Subreddit() {
 
             <h3>Active Subreddits:</h3>
             <ul>
-                {subredditList.map((ea) => <p>{ea}<button onClick={removeSub}><i class="fa-solid fa-x removeBtn"></i></button></p>)}
+                {subList.map((ea) => <SubredditList id={ea.id} name={ea.name} />)}
             </ul>
         </div>
     )

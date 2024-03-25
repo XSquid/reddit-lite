@@ -3,17 +3,18 @@
     background-color: darkcyan;
     align-items:center;
     margin-top: 175px;
+    width: 2em;
 }
 
 .arrowUp{
     font-size: 3rem;
-    -webkit-text-stroke: 1px orange;
+    -webkit-text-stroke: 1px #ffa500;
     color: white;
 }
 
 .arrowDown{
     font-size: 3rem;
-    -webkit-text-stroke: 1px lightskyblue;
+    -webkit-text-stroke: 1px #87cefa;
     color: white;
 }
 

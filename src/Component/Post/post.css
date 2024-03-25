@@ -3,6 +3,7 @@ img{
 }
 
 .post{
+    padding-top: 1rem;
     background-color: lime;
     padding-bottom: 1rem;
 }
@@ -10,4 +11,17 @@ img{
 .indPost{
     display: flex;
     justify-content: center;
+}
+
+
+.banner-subreddit{
+    float: left;
+    margin-left: 20%;
+    margin-top: 1rem;
+}
+
+.banner-title{
+    float: center;
+    margin-left: -20%;
+    font-size: 2rem;
 }
