@@ -7,13 +7,13 @@ import { useDispatch } from "react-redux";
 export default function SubredditList(props) {
 
     const dispatch = useDispatch();
-    const id = props.id
+    const subId = props.subId
     const removeSub = (event) => {
         event.preventDefault();
-        dispatch(removeSubreddit(id))
+        dispatch(removeSubreddit(subId))
     }
 
     return (
-        <p id={id}>{props.name}<button id={id} onClick={removeSub}><i class="fa-solid fa-x removeBtn"></i></button></p>
+        <p subId={subId}>{props.subName}{props.subId}<button subId={subId} onClick={removeSub}><i class="fa-solid fa-x removeBtn"></i></button></p>
     )
 }

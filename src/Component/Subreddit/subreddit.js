@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import './subreddit.css'
 import { useSelector, useDispatch } from "react-redux";
-import { selectSubreddits } from "../../Store/subredditSlice";
-import { addSubreddit, loadData } from "../../Store/subredditSlice";
+import { addSubreddit, loadData, selectSubreddits } from "../../Store/subredditSlice";
 import subData from "../../Store/data";
 import SubredditList from "./subredditList";
 
@@ -16,10 +15,16 @@ export default function Subreddit() {
         setSearch(e.target.value)
     } // update the search state with whatever is typed in the input
 
+    const duplicateSubChecker = () => {
+        if (!subList.some(ea => ea.subName === search) && search) {
+            return true
+        } else return false
+    }
+
     const addSubtoList = (event) => {
         event.preventDefault();
-        if (search) {
-            dispatch(addSubreddit({ id: Math.floor(Math.random() * 100), name: search }));
+        if (duplicateSubChecker()) { // need to add another conditional for duplicates
+            dispatch(addSubreddit({ subId: Math.floor(Math.random() * 100), subName: search }));
         }
 
     } //when add button is clicked, dispatches reducer to add the payload to store, which is then displayed under active subreddits
@@ -43,8 +48,10 @@ export default function Subreddit() {
 
             <h3>Active Subreddits:</h3>
             <ul>
-                {subList.map((ea) => <SubredditList id={ea.id} name={ea.name} />)}
+                {subList.map((ea) => <SubredditList subId={ea.subId} subName={ea.subName} />)}
+                {subList.map((ea) => <p>{ea.posts[0]?.title}</p>)}
             </ul>
+                
         </div>
     )
 }
