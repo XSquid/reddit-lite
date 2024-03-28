@@ -31,10 +31,13 @@ export const subredditsSlice = createSlice({
             }
         },
         loadPostToSubreddit: (state, action) => {
-            for (const [key, value] of Object.entries(state.subreddits)) {
+            for (const [key, value] of Object.entries(state.subreddits)) { // for each key/value pair subreddit: 
                 if (key) {
-                    action.payload.forEach((el) => {if (el.subName === value.subName) { // match post subreddit data to store subreddit
-                        value.posts.push(el) // add post data to subreddit post array
+                    action.payload.forEach((el) => {if (el.subName === value.subName) { // for each post data object, if the post.subName name is equal to a loaded subreddit
+                        if (!value.posts.some((post) => post.postId === el.postId)) { //check if there is a duplicate post by checking if the post ID is already in store
+                            value.posts.push(el) // add post data to subreddit post array
+                        }
+                        
                     }})
                 }
             }
@@ -81,4 +84,3 @@ export const {addSubreddit, removeSubreddit, loadData, loadPostToSubreddit, vote
 export const selectSubreddits = (state) => state.subreddits.subreddits
 export default subredditsSlice.reducer;
 
-// TODO : check for duplicates on load of new posts, do not load if a postId is already found.

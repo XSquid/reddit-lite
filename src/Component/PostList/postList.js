@@ -24,7 +24,7 @@ function PostList() {
         <div className='postList'>
             <h2>posts go here <button onClick={loadem}>Load Post Data</button></h2>
              {/* {allPosts.map((post) => <Post postId={post.postId} title={post.title} subName={post.subName} votes={post.votes} image={post.image}/>)}  */}
-             {allSubreddits.map((sub) => sub.posts.map((post) => <Post postId={post.postId} title={post.title} subName={post.subName} votes={post.votes} image={post.image}/>))}
+             {allSubreddits.map((sub) => sub.posts.map((post) => <Post postId={post.postId} title={post.title} subName={post.subName} votes={post.votes} image={post.image} comments={post.comments}/>))}
         </div>
     )
 }
