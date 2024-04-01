@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import Comments from "../Comment/comments";
 import './post.css'
 import Votes from "../votes/votes";
-import { voteUp, voteDown } from "../../Store/subredditSlice";
 import { useDispatch } from "react-redux";
+import { votePostUp, votePostDown } from "../../Store/postSlice";
 
 
 function Post({ postId, title, votes, image, subName, comments }) {
@@ -11,15 +11,14 @@ function Post({ postId, title, votes, image, subName, comments }) {
 
     const [showComment, setShowComment] = useState(false)
     const dispatch = useDispatch();
-    const voteSubmit = [postId, subName]
     const upvote = (e) => {
         e.preventDefault();
-        dispatch(voteUp(voteSubmit))
+        dispatch(votePostUp(postId))
     }
 
     const downvote = (e) => {
         e.preventDefault();
-        dispatch(voteDown(voteSubmit))
+        dispatch(votePostDown(postId))
     }
 
     const loadComment = (e) => {

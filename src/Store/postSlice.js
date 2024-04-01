@@ -15,16 +15,35 @@ export const postSlice = createSlice({
         loadPost: (state, action) => {
             state.posts = action.payload;
         },
-        voteUp: (state, action) => {
-            state.posts[action.payload].votes += 1
+        votePostUp: (state, action) => {
+            state.posts.forEach((post) => {
+                if (post.postId === action.payload) {
+                    post.votes += 1
+                }
+            })
             
         },
-        voteDown: (state, action) => {
-            state.posts[action.payload].votes -= 1
+        votePostDown: (state, action) => {
+            state.posts.forEach((post) => {
+                if (post.postId === action.payload) {
+                    post.votes -= 1
+                }
+            })
+        },
+        setSubreddit : (state, action) => {
+            state.subreddit = action.payload;
+        },
+        loadPosts: (state, action) => {
+            state.posts = [];
+            action.payload.forEach((postData) => {
+                if (postData.subName === state.subreddit) {
+                    state.posts.push(postData)
+                }
+            })
         }
     }
 })
 
-export const {loadPost, voteUp, voteDown} = postSlice.actions;
-export const selectPost = (state) => state.posts.posts;
+export const {loadPost, votePostUp, votePostDown, setSubreddit, loadPosts} = postSlice.actions;
+export const selectPost = (state) => state.posts
 export default postSlice.reducer

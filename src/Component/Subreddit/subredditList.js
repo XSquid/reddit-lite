@@ -1,19 +1,29 @@
 import React from "react";
 import { removeSubreddit } from "../../Store/subredditSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { setSubreddit } from "../../Store/postSlice";
+import { selectPost } from "../../Store/postSlice";
+
 
 
 
 export default function SubredditList(props) {
 
     const dispatch = useDispatch();
-    const subId = props.subId
+
+    const postInfo = useSelector(selectPost)
+    const subName = props.subName
     const removeSub = (event) => {
         event.preventDefault();
-        dispatch(removeSubreddit(subId))
+        dispatch(removeSubreddit(subName))
+    }
+
+    const selectSubreddit = (event) => {
+        event.preventDefault();
+        dispatch(setSubreddit(subName))
     }
 
     return (
-        <p subId={subId}>{props.subName}{props.subId}<button subId={subId} onClick={removeSub}><i class="fa-solid fa-x removeBtn"></i></button></p>
+        <p onClick={selectSubreddit} className={subName === postInfo.subreddit ? 'selectedSubreddit' : 'unselectedSubreddit'}>{props.subName}<button onClick={removeSub}><i class="fa-solid fa-x removeBtn"></i></button></p>
     )
 }
