@@ -11,9 +11,11 @@ button{
 }
 
 .commentBox{
-    background-color:blanchedalmond
+    background-color:blanchedalmond;
+    
 }
 
 .comment-line{
     margin-top: 0;
+    text-align:left
 }

@@ -1,10 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+
+const initialState = {
+    isLoading: false,
+    error: false,
+    subreddit: '',
+    posts: []
+}
+
 export const postSlice = createSlice({
     name: 'posts',
-    initialState: {
-        posts: []
-    },
+    initialState,
     reducers: {
         loadPost: (state, action) => {
             state.posts = action.payload;
