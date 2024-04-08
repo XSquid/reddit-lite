@@ -1,10 +1,11 @@
 .votes{
     font-size: 1.5rem;
     background-color: darkcyan;
-    align-items:center;
-    margin-top: 175px;
-    width: 2em;
+    width: 3em;
+    margin-right: 1em;
+    margin-top: 0.66em;
 }
+
 
 .arrowUp{
     font-size: 3rem;
@@ -34,4 +35,8 @@
 .arrowDown:active{
     color: rgb(48, 176, 255);
     -webkit-text-stroke:rgb(48, 176, 255);
+}
+
+i{
+    padding-left: 0.25em;
 }

@@ -4,7 +4,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
     isLoading: false,
     error: false,
-    subreddit: '',
+    subreddit: '/pics',
     posts: []
 }
 
@@ -12,16 +12,13 @@ export const postSlice = createSlice({
     name: 'posts',
     initialState,
     reducers: {
-        loadPost: (state, action) => {
-            state.posts = action.payload;
-        },
         votePostUp: (state, action) => {
             state.posts.forEach((post) => {
                 if (post.postId === action.payload) {
                     post.votes += 1
                 }
             })
-            
+
         },
         votePostDown: (state, action) => {
             state.posts.forEach((post) => {
@@ -30,7 +27,7 @@ export const postSlice = createSlice({
                 }
             })
         },
-        setSubreddit : (state, action) => {
+        setSubreddit: (state, action) => {
             state.subreddit = action.payload;
         },
         loadPosts: (state, action) => {
@@ -40,10 +37,34 @@ export const postSlice = createSlice({
                     state.posts.push(postData)
                 }
             })
+        },
+        loadFromFetch: (state, action) => {
+            for (let i = 0; i < action.payload.length; i++) {
+                state.posts.push({
+                    title: action.payload[i].data.title,
+                    postId: action.payload[i].data.id,
+                    image: action.payload[i].data.url,
+                    votes: action.payload[i].data.score,
+                    link: action.payload[i].data.permalink,
+                    selftext: action.payload[i].data.selftext
+                })
+            }
+        },
+        fetchComments : (state, action) => {
+            state.posts.forEach((post) => {if (post.postId === action.payload[0].data.children[0].data.id){
+                for (let i = 0; i < 5; i++) {
+                    post.comments.push({author: action.payload[1].data.children[i].data.author, commentText: action.payload[1].data.children[i].data.body})
+                }
+            }}
+           )
         }
+
     }
 })
 
-export const {loadPost, votePostUp, votePostDown, setSubreddit, loadPosts} = postSlice.actions;
+
+
+
+export const { votePostUp, votePostDown, setSubreddit, loadPosts, loadFromFetch, fetchComments } = postSlice.actions;
 export const selectPost = (state) => state.posts
 export default postSlice.reducer

@@ -4,9 +4,12 @@ import { useSelector, useDispatch } from "react-redux";
 import { addSubreddit, loadData, selectSubreddits } from "../../Store/subredditSlice";
 import subData from "../../Store/data";
 import SubredditList from "./subredditList";
+import { loadPosts, selectPost } from "../../Store/postSlice";
+import { postData } from "../../Store/data";
 
 export default function Subreddit() {
 
+    const postInfo = useSelector(selectPost)
     const subList = useSelector(selectSubreddits)
     const [search, setSearch] = useState('')
     const dispatch = useDispatch();
@@ -32,6 +35,10 @@ export default function Subreddit() {
     useEffect(() => {
         dispatch(loadData(subData));
       }, []);
+
+      useEffect(() => {
+        dispatch(loadPosts(postData))
+      }, [postInfo.subreddit])
 
     return (
         <div className='subreddits'>

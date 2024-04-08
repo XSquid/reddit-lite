@@ -25,7 +25,7 @@ export const subredditsSlice = createSlice({
         addSubreddit: (state, action) => {
             state.subreddits.push(action.payload)
         },
-        loadPostToSubreddit: (state, action) => {
+        /* loadPostToSubreddit: (state, action) => {
             for (const [key, value] of Object.entries(state.subreddits)) { // for each key/value pair subreddit: 
                 if (key) {
                     action.payload.forEach((el) => {if (el.subName === value.subName) { // for each post data object, if the post.subName name is equal to a loaded subreddit
@@ -37,7 +37,7 @@ export const subredditsSlice = createSlice({
                 }
             }
 
-        },
+        }, */
         removeSubreddit: (state, action) => {
             state.subreddits = state.subreddits.filter((subreddit) => subreddit.subName !== action.payload)
         },

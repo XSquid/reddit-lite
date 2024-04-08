@@ -2,6 +2,10 @@ button{
     float: right;
 }
 
+.commentContainer{
+    margin-top: 1em;
+}
+
 .comment-btn{
     border: 1px solid black;
     border-radius: 1em;
