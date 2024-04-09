@@ -4,41 +4,33 @@ import { useSelector, useDispatch } from "react-redux";
 import { addSubreddit, loadData, selectSubreddits } from "../../Store/subredditSlice";
 import subData from "../../Store/data";
 import SubredditList from "./subredditList";
-import { loadPosts, selectPost } from "../../Store/postSlice";
-import { postData } from "../../Store/data";
 
 export default function Subreddit() {
 
-    const postInfo = useSelector(selectPost)
     const subList = useSelector(selectSubreddits)
     const [search, setSearch] = useState('')
     const dispatch = useDispatch();
 
     const onChange = (e) => {
-        setSearch(e.target.value)
-    } // update the search state with whatever is typed in the input
+        setSearch(e.target.value.toLowerCase())
+    } // update the search state with whatever is typed in the input. Forced to lowercase to make sure no duplicates between cases
 
-    const duplicateSubChecker = () => {
+    const duplicateSubChecker = () => { //Check if the search term is already in the subreddit list, and if the search term is not empty
         if (!subList.some(ea => ea.subName === search) && search) {
             return true
         } else return false
     }
 
-    const addSubtoList = (event) => {
+    const addSubtoList = (event) => { //when add button is clicked, dispatches reducer to add the payload to store, which is then displayed under active subreddits
         event.preventDefault();
-        if (duplicateSubChecker()) { // need to add another conditional for duplicates
-            dispatch(addSubreddit({subName: search }));
+        if (duplicateSubChecker()) { 
+            dispatch(addSubreddit({ subName: search }));
         }
-    } //when add button is clicked, dispatches reducer to add the payload to store, which is then displayed under active subreddits
+    } 
 
-    // Load initial subreddits
-    useEffect(() => {
+    useEffect(() => {   // Load initial default subreddits
         dispatch(loadData(subData));
-      }, []);
-
-      useEffect(() => {
-        dispatch(loadPosts(postData))
-      }, [postInfo.subreddit])
+    }, []);
 
     return (
         <div className='subreddits'>
@@ -53,7 +45,7 @@ export default function Subreddit() {
             <ul>
                 {subList.map((ea) => <SubredditList subName={ea.subName} />)}
             </ul>
-                
+
         </div>
     )
 }

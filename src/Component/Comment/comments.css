@@ -1,25 +1,31 @@
-button{
-    float: right;
-}
 
 .commentContainer{
     margin-top: 1em;
 }
 
-.comment-btn{
+.commentBtn{
     border: 1px solid black;
     border-radius: 1em;
     background-color: aquamarine;
     padding: 0.75em;
+    width: 100%;
     font-size: 1em;
 }
 
 .commentBox{
     background-color:blanchedalmond;
-    
+    max-width: 680px;
+    padding: 5px 10px 5px 10px;
+    clear:both;
 }
 
-.comment-line{
+.commentLine{
     margin-top: 0;
-    text-align:left
+    text-align:left;
+
+}
+
+.author{
+    font-weight: bold;
+    text-decoration: underline;
 }

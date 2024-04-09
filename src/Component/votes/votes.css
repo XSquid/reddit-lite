@@ -37,6 +37,10 @@
     -webkit-text-stroke:rgb(48, 176, 255);
 }
 
-i{
-    padding-left: 0.25em;
+.upvoted{
+    color: orange;
+}
+
+.downvoted{
+    color: lightskyblue;
 }

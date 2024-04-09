@@ -1,26 +1,46 @@
-import React from "react";
+import React, { useState } from "react";
 import './votes.css'
 
 export default function Votes(props) {
 
-    let taskDone = false;
-    const doneTask = () => {
-        taskDone = (taskDone ? false : true)
+    const [voteTrack, setVoteTrack] = useState(0)
+
+    const onClickUpvote = () => {
+        if (voteTrack === 0) {
+            props.upvote()
+            setVoteTrack(1)
+            document.getElementById('voteCount').style.color = 'orange'
+        } else if (voteTrack === 1) {
+            props.downvote()
+            setVoteTrack(0)
+        } else if (voteTrack === -1) {
+            setVoteTrack(1)
+            props.upvote()
+            props.upvote()
+        }
     }
 
-    const taskCheck = () => {
-        if (taskDone) {
-            return 'background-color: orange'
-        } else return 'blue'
+    const onClickDownvote = () => {
+        if (voteTrack === 0) {
+            props.downvote()
+            setVoteTrack(-1)
+        } else if (voteTrack === 1) {
+            props.downvote()
+            props.downvote()
+            setVoteTrack(-1)
+        } else if (voteTrack === -1) {
+            setVoteTrack(0)
+            props.upvote()
+        }
     }
 
 
     return (
         <div className='votes'>
-           <i class="fa-solid fa-arrow-up arrowUp" onClick={props.upvote} style={{taskCheck}}><button onClick={doneTask}></button></i>
+            <i class="fa-solid fa-arrow-up arrowUp" onClick={onClickUpvote} style={{ color : voteTrack === 1 ? 'orange' : 'white' }}></i>
             <br />
-            <span className='voteNumber' style={{color: props.voteCount > 0 ? "#ffa500" : '#87cefa'}}>{props.voteCount}</span><br />
-            <i class="fa-solid fa-arrow-down arrowDown" onClick={props.downvote}><button></button></i>
+            <span className='voteNumber' id="voteCount" style={{ color: props.voteCount > 0 ? "#ffa500" : '#87cefa' }}>{props.voteCount}</span><br />
+            <i class="fa-solid fa-arrow-down arrowDown" onClick={onClickDownvote} style={{color: voteTrack === -1 ? 'lightskyblue' : 'white'}}></i>
         </div>
     )
 }

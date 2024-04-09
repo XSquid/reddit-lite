@@ -11,32 +11,30 @@ function Post({ postId, title, votes, image, subName, comments, link, selftext }
 
     const [showComment, setShowComment] = useState(false)
     const dispatch = useDispatch();
-    const upvote = (e) => {
-        e.preventDefault();
+    const upvote = () => { //changes the vote count in store for post by +1
         dispatch(votePostUp(postId))
     }
 
-    const downvote = (e) => {
-        e.preventDefault();
+    const downvote = () => { //changes the vote count in store for post by -1
         dispatch(votePostDown(postId))
     }
 
-    const loadComment = (e) => {
+    const loadComment = (e) => { //If comments are shown, will hide - If hidden, will show
         e.preventDefault();
         setShowComment(!showComment)
     }
 
-    function youtube_parser(image) {
+    function youtube_parser(image) { //regex for pulling out youtube ID from what is collected in the API call
         var regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
         var match = image.match(regExp);
         return (match && match[7].length === 11) ? match[7] : false;
     }
 
 
-    const fetchComments = async () => {
+    const commentFetcher = async () => { //fetch comments from reddit API for selected post. Only fetches top 5 comments
         try {
             const response = await fetch('https://www.reddit.com' + link + '.json')
-            const postData = await response.json();
+            const postData = await response.json()
             if (!response.ok) {
                 const error = new Error('An error has occured')
                 error.details = postData;
@@ -44,14 +42,11 @@ function Post({ postId, title, votes, image, subName, comments, link, selftext }
             }
             console.log(postData)
             dispatch(fetchComments(postData));
+            setShowComment(true)
         } catch (e) {
             console.log(e.message);
             console.log(e.details);
         }
-    }
-
-    const TEST = () => {
-        alert(comments)
     }
 
     const mediaQuery = () => { //Testing what type of content is being returned from API, if youtube video and image or comments, display content. If not (gallery, other video types) do not display anything
@@ -80,17 +75,16 @@ function Post({ postId, title, votes, image, subName, comments, link, selftext }
         return
     }
 
-
     return (
         <div className='post' id={postId}>
-            <div className='post-banner'><span className='banner-subreddit'>{subName}</span><span className='banner-title'>{title}{postId}</span></div>
+            <div className='post-banner'><span className='banner-subreddit'>{subName}</span><span className='banner-title'>{title}</span></div>
             <div className='indPost'>
                 <div>
                     <Votes voteCount={votes} upvote={upvote} downvote={downvote} />
                 </div>
                 <div className='mediaContainer'>
                     {mediaQuery()}
-                    <Comments loadComment={loadComment} comments={comments} showComment={showComment} fetchComments={fetchComments} />
+                    <Comments loadComment={loadComment} comments={comments} showComment={showComment} fetchComments={commentFetcher} />
                 </div>
 
             </div>

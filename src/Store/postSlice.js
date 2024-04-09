@@ -1,10 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-
 const initialState = {
     isLoading: false,
     error: false,
-    subreddit: '/pics',
+    subreddit: '',
     posts: []
 }
 
@@ -50,19 +49,29 @@ export const postSlice = createSlice({
                 })
             }
         },
-        fetchComments : (state, action) => {
-            state.posts.forEach((post) => {if (post.postId === action.payload[0].data.children[0].data.id){
-                for (let i = 0; i < 5; i++) {
-                    post.comments.push({author: action.payload[1].data.children[i].data.author, commentText: action.payload[1].data.children[i].data.body})
+        fetchComments: (state, action) => {
+
+            state.posts.forEach((post) => {
+                if (post.postId === action.payload[0].data.children[0].data.id) {
+                    post.comments = []
+                    let i = 0;
+                    let j = 0;
+                    while (j < 5) {
+                        if ((action.payload[1].data.children[i].data.author.includes('AutoModerator')) || (action.payload[1].data.children[i].data.body.includes('[gif](giphy|'))) {
+                            i++
+                        } else {
+                            post.comments.push({ author: action.payload[1].data.children[i].data.author, commentText: action.payload[1].data.children[i].data.body })
+                            i++
+                            j++
+                        }
+                    }
                 }
-            }}
-           )
+            }
+            )
         }
 
     }
 })
-
-
 
 
 export const { votePostUp, votePostDown, setSubreddit, loadPosts, loadFromFetch, fetchComments } = postSlice.actions;
